@@ -1,0 +1,18 @@
+name: pov-docker
+services:
+  counting:
+    image: hashicorp/counting-service:0.0.2
+    environment:
+      PORT: "9001"
+    ports:
+      - "9001:9001"
+
+  dashboard:
+    image: hashicorp/dashboard-service:0.0.4
+    environment:
+      PORT: "9002"
+      COUNTING_SERVICE_URL: "http://counting:9001"
+    ports:
+      - "9002:9002"
+    depends_on:
+      - counting
