@@ -1,7 +1,7 @@
 # Copyright IBM Corp. 2018, 2023
 # SPDX-License-Identifier: MPL-2.0
 
-FROM alpine:3.7
+FROM alpine:3.24.2
 WORKDIR /app
 ADD . /app
 EXPOSE 9001
