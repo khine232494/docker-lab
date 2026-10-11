@@ -27,3 +27,25 @@ run: ## run docker image locally
 - docker tag counting-app:0.1 crackerp2k/docker-lab
 
 - docker push crackerp2k/docker-lab:latest
+
+
+
+## Run the Germany counting dashboard
+
+Build both images from the repository root:
+
+```sh
+docker build -t counting-app:0.1 ./counting-app
+docker build -t crackerp2k/germany-counting:0.1 ./germany-counting
+```
+
+Start the counting service and dashboard on the same Docker network:
+
+```sh
+docker network create germany-counting
+docker run -d --name counting-app --network germany-counting counting-app:0.1
+docker run -d --name germany-counting --network germany-counting -p 8001:80 crackerp2k/germany-counting:0.1
+```
+
+Open <http://localhost:8001>. If a container named `germany-counting` already
+exists, remove that old container before running the dashboard command again.

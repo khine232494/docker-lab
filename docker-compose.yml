@@ -1,0 +1,60 @@
+---
+
+version: "3.3"
+services:
+
+  web:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "http://review1:9090,http://review2:9090,http://review3:9090,http://detail:9090"
+      MESSAGE: "Product"
+      NAME: "web"
+      SERVER_TYPE: "http"
+    ports:
+    - "9090:9090"
+
+  review1:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "http://raiting:9090"
+      UPSTREAM_WORKERS: 2
+      MESSAGE: "Review response"
+      NAME: "Review 1"
+      SERVER_TYPE: "http"
+
+  review2:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_WORKERS: 2
+      MESSAGE: "Review response"
+      NAME: "Review 2"
+      SERVER_TYPE: "http"
+  review3:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      UPSTREAM_URIS: "http://raiting:9090"
+      UPSTREAM_WORKERS: 2
+      MESSAGE: "Review response"
+      NAME: "Review 3"
+      SERVER_TYPE: "http"
+
+  detail:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      MESSAGE: "datail response"
+      NAME: "Detail"
+      SERVER_TYPE: "http"
+
+
+  raiting:
+    image: nicholasjackson/fake-service:v0.23.1
+    environment:
+      LISTEN_ADDR: 0.0.0.0:9090
+      MESSAGE: "Payments response"
+      NAME: "Raiting"
+      SERVER_TYPE: "http"

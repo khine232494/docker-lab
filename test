@@ -1,0 +1,39 @@
+services:
+  ratings:
+    build: .
+    environment:
+      - LISTEN_ADDR=0.0.0.0:9094
+      - NAME=Ratings
+    ports:
+      - "9094:9094"
+
+  details:
+    build: .
+    environment:
+      - LISTEN_ADDR=0.0.0.0:9093
+      - NAME=Details
+    ports:
+      - "9093:9093"
+
+  reviews:
+    build: .
+    environment:
+      - LISTEN_ADDR=0.0.0.0:9092
+      - NAME=Reviews
+      - UPSTREAM_URIS=http://ratings:9094
+    ports:
+      - "9092:9092"
+    depends_on:
+      - ratings
+
+  productpage:
+    build: .
+    environment:
+      - LISTEN_ADDR=0.0.0.0:9091
+      - NAME=ProductPage
+      - UPSTREAM_URIS=http://reviews:9092,http://details:9093
+    ports:
+      - "9091:9091"
+    depends_on:
+      - reviews
+      - details

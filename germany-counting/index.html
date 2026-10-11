@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Germany Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(
+                135deg,
+                #000000,
+                #DD0000,
+                #FFCE00
+            );
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.65);
+            padding: 50px;
+            border-radius: 20px;
+        }
+
+        h1 {
+            font-size: 50px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+
+        #count {
+            font-size: 70px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🇩🇪 JACKPOT WINNER</h1>
+
+        <h2>JACKPOT WINNER</h2>
+
+        <div id="count">Loading...</div>
+    </div>
+
+    <script>
+        async function getCount() {
+            try {
+                const response = await fetch("/count");
+                const data = await response.json();
+
+                document.getElementById("count").textContent = data.count;
+            } catch (error) {
+                document.getElementById("count").textContent = "Counting unavailable";
+            }
+        }
+
+        getCount();
+
+        setInterval(getCount, 1000);
+    </script>
+
+</body>
+</html>
