@@ -1,0 +1,34 @@
+services:
+  customer-profile-svc:
+    image: nicholasjackson/fake-service:v0.26.2
+    container_name: customer-profile-svc
+    ports:
+      - "9091:9091"
+    environment:
+      LISTEN_ADDR: "0.0.0.0:9091"
+      UPSTREAM_URIS: "http://10.1.2.217:9092"
+      NAME: "customer-profile-svc"
+      MESSAGE: "HelloCloudBank | Retail Banking | customer-profile-svc"
+
+services:
+  account-svc:
+    image: nicholasjackson/fake-service:v0.26.2
+    container_name: account-svc
+    ports:
+      - "9092:9092"
+    environment:
+      LISTEN_ADDR: "0.0.0.0:9092"
+      UPSTREAM_URIS: "http://10.2.1.168:9093"
+      NAME: "account-svc"
+      MESSAGE: "HelloCloudBank | Retail Banking | account-svc"
+
+services:
+  statement-svc:
+    image: nicholasjackson/fake-service:v0.26.2
+    container_name: statement-svc
+    ports:
+      - "9093:9093"
+    environment:
+      LISTEN_ADDR: "0.0.0.0:9093"
+      NAME: "statement-svc"
+      MESSAGE: "HelloCloudBank | Retail Banking | statement-svc"
